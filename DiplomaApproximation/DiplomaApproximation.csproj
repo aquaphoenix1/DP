@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,14 +46,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Distributions\ExponentialOneway.cs" />
+    <Compile Include="Distributions\IDistribution.cs" />
+    <Compile Include="Distributions\Normal.cs" />
+    <Compile Include="FormError.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormError.Designer.cs">
+      <DependentUpon>FormError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormNetwork.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNetwork.Designer.cs">
+      <DependentUpon>FormNetwork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormParametrs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormParametrs.Designer.cs">
+      <DependentUpon>FormParametrs.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\Layer.cs" />
+    <Compile Include="Web\Network.cs" />
+    <Compile Include="Web\Neuron.cs" />
+    <EmbeddedResource Include="FormError.resx">
+      <DependentUpon>FormError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNetwork.resx">
+      <DependentUpon>FormNetwork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormParametrs.resx">
+      <DependentUpon>FormParametrs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
