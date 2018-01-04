@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckForm.Designer.cs">
+      <DependentUpon>CheckForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Distributions\Arcsinus.cs" />
     <Compile Include="Distributions\ExponentialOneway.cs" />
     <Compile Include="Distributions\IDistribution.cs" />
@@ -85,6 +91,9 @@
     <Compile Include="Web\Layer.cs" />
     <Compile Include="Web\Network.cs" />
     <Compile Include="Web\Neuron.cs" />
+    <EmbeddedResource Include="CheckForm.resx">
+      <DependentUpon>CheckForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormError.resx">
       <DependentUpon>FormError.cs</DependentUpon>
     </EmbeddedResource>

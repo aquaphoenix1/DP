@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxCountCloset = new System.Windows.Forms.TextBox();
-            this.labelCountCloset = new System.Windows.Forms.Label();
             this.comboBoxDistribution = new System.Windows.Forms.ComboBox();
             this.labelCount = new System.Windows.Forms.Label();
             this.textBoxCount = new System.Windows.Forms.TextBox();
@@ -40,23 +38,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // textBoxCountCloset
-            // 
-            this.textBoxCountCloset.Location = new System.Drawing.Point(161, 113);
-            this.textBoxCountCloset.Name = "textBoxCountCloset";
-            this.textBoxCountCloset.Size = new System.Drawing.Size(120, 20);
-            this.textBoxCountCloset.TabIndex = 21;
-            this.textBoxCountCloset.Text = "20";
-            // 
-            // labelCountCloset
-            // 
-            this.labelCountCloset.AutoSize = true;
-            this.labelCountCloset.Location = new System.Drawing.Point(161, 97);
-            this.labelCountCloset.Name = "labelCountCloset";
-            this.labelCountCloset.Size = new System.Drawing.Size(123, 13);
-            this.labelCountCloset.TabIndex = 20;
-            this.labelCountCloset.Text = "Количество коридоров";
             // 
             // comboBoxDistribution
             // 
@@ -161,8 +142,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(287, 177);
             this.ControlBox = false;
-            this.Controls.Add(this.textBoxCountCloset);
-            this.Controls.Add(this.labelCountCloset);
             this.Controls.Add(this.comboBoxDistribution);
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.textBoxCount);
@@ -181,9 +160,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBoxCountCloset;
-        private System.Windows.Forms.Label labelCountCloset;
         private System.Windows.Forms.ComboBox comboBoxDistribution;
         private System.Windows.Forms.Label labelCount;
         private System.Windows.Forms.TextBox textBoxCount;

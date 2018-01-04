@@ -21,8 +21,9 @@ namespace DiplomaApproximation
         private double[] learnedX,
             learnedY;
 
+        private double[] learnedProbability;
+
         private double[] probability;
-        private int[] count;
 
         public FormMain()
         {
@@ -65,8 +66,13 @@ namespace DiplomaApproximation
             }
         }
 
-        public void Generate(double[] arrayDistribution, int countIntervals, string name, bool isInitialize)
+        public void Generate(double[] arrayDistribution, string name, bool isInitialize)
         {
+            int countIntervals = network.CountNeurons;
+            array = new double[arrayDistribution.Length];
+
+            Array.Copy(arrayDistribution, array, arrayDistribution.Length);
+
             Array.Sort(arrayDistribution);
             double[] arrayOfX = new double[countIntervals],
                 arrayOfY = new double[countIntervals];
@@ -97,20 +103,13 @@ namespace DiplomaApproximation
 
             arrayOfY[arrayOfY.Length - 1] = arrayDistribution.Length - sum;
 
-            double[] counter = new double[arrayOfY.Length];
-            Array.Copy(arrayOfY, counter, arrayOfY.Length);
-
-            count = new int[counter.Length];
-
-            for (int i = 0; i < counter.Length; i++)
-            {
-                count[i] = (int)counter[i];
-            }
-
             for (int i = 0; i < countIntervals; i++)
             {
                 arrayOfY[i] /= arrayDistribution.Length;
             }
+
+            double[] buf = new double[countIntervals];
+            Array.Copy(arrayOfY, buf, arrayOfY.Length);
 
             /*List<double> newArrX, newArrY;
             //while(!CorrectingArray(arrayOfX, arrayOfY, out newArrX, out newArrY, step))
@@ -123,13 +122,10 @@ namespace DiplomaApproximation
             arrayOfX = newArrX.ToArray();
             arrayOfY = newArrY.ToArray();*/
 
-            for (int i = 0; i < arrayOfY.Length; i++)
+            for (int i = 0; i < countIntervals; i++)
             {
                 arrayOfY[i] /= step;
             }
-
-            double[] buf = new double[arrayOfY.Length];
-            Array.Copy(arrayOfY, buf, arrayOfY.Length);
 
             MiniMax(arrayOfY);
             MiniMax(arrayOfX);
@@ -141,16 +137,42 @@ namespace DiplomaApproximation
             if (isInitialize)
             {
                 nameDistribution = name;
-                array = arrayDistribution;
 
                 learnedX = ArrayX;
                 learnedY = ArrayY;
 
-                network.InitCenters(ArrayX.Length, learnedX);
+                network.InitCenters(countIntervals, learnedX);
 
                 chartHystogram.Series["Выборка"].Points.DataBindXY(learnedX, learnedY);
 
-                probability = buf;
+                learnedProbability = buf;
+            }
+            else
+            {
+                probability = new double[countIntervals];
+
+                sum = 0;
+                MiniMax(arrayDistribution);
+
+                for (int i = 0; i < arrayDistribution.Length; i++)
+                {
+                    for (int j = 0; j < countIntervals - 1; j++)
+                    {
+                        if (arrayDistribution[i] >= ArrayX[j] && arrayDistribution[i] < ArrayX[j + 1])
+                        {
+                            probability[j]++;
+                            sum++;
+                            break;
+                        }
+                    }
+                }
+
+                probability[probability.Length - 1] = arrayDistribution.Length - sum;
+
+                for (int i = 0; i < countIntervals; i++)
+                {
+                    probability[i] /= arrayDistribution.Length;
+                }
             }
         }
 
@@ -162,10 +184,15 @@ namespace DiplomaApproximation
             }
         }
 
-        public void InitializeNetwork(int countLearningItterations, double learningCoefficient, double momentum, double error)
+        public void InitializeNetwork(int countLearningItterations, double learningCoefficient, double momentum, double error, int countNeurons)
         {
             network = new Network();
-            network.Init(countLearningItterations, learningCoefficient, momentum, error);
+            network.Init(countLearningItterations, learningCoefficient, momentum, error, countNeurons);
+        }
+
+        public int GetCountNeurons()
+        {
+            return network.CountNeurons;
         }
 
         static FormMain form;
@@ -198,7 +225,11 @@ namespace DiplomaApproximation
                         arr[i] = Double.Parse(array[i]);
                     }
 
-                    Generate(arr, network.Layer.Neurons.Length, "", isInitialize);
+                    if (isInitialize)
+                    {
+                        Generate(arr, "", isInitialize);
+                    }
+
                     learnNetworkToolStripMenuItem.Enabled = true;
                 }
             }
@@ -268,16 +299,17 @@ namespace DiplomaApproximation
                 double[] array = Download(j.ToString());
                 if (array != null)
                 {
-                    Generate(array, learnedX.Length, "", false);
-                    values = new double[learnedX.Length];
-                    for (int i = 0; i < learnedX.Length; i++)
+                    int countNeurons = network.CountNeurons;
+                    Generate(array, "", false);
+                    values = new double[countNeurons];
+                    for (int i = 0; i < countNeurons; i++)
                     {
                         double value = network.OutputValue(ArrayX[i]);
                         values[i] = value;
                         error += Math.Pow(value - ArrayY[i], 2);
                     }
 
-                    errors.Add(Math.Sqrt(error / (learnedX.Length - 1)));
+                    errors.Add(Math.Sqrt(error / (countNeurons - 1)));
                     SetNewValue(ArrayX, ArrayY);
                 }
                 else
@@ -330,9 +362,20 @@ namespace DiplomaApproximation
             if (form.DialogResult == DialogResult.OK)
             {
                 chartHystogram.Series["Сеть"].Points.Clear();
+                chartHystogram.Series["Выборка"].Points.Clear();
+
+                ArrayX = null;
+                ArrayY = null;
+                learnedX = null;
+                learnedY = null;
+                array = null;
 
                 fileToolStripMenuItem.Enabled = true;
                 generatorToolStripMenuItem.Enabled = true;
+
+                learnNetworkToolStripMenuItem.Enabled = false;
+                testNetworkToolStripMenuItem.Enabled = false;
+                workingToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -407,23 +450,37 @@ namespace DiplomaApproximation
             }
         }
 
-        private double ChiSquare()
+        private void Check()
         {
+            int countNeurons = network.CountNeurons;
             double result = 0.0;
 
-            for (int i = 0; i < learnedX.Length; i++)
+            for (int i = 0; i < countNeurons; i++)
             {
-                if(probability[i] == 0)
+                if(learnedProbability[i] == 0)
                 {
                     continue;
                 }
-                //result += Math.Pow(count[i] - array.Length, 2) / array.Length;
-                result += Math.Pow(count[i] / array.Length - probability[i], 2) / probability[i];
+                result += Math.Pow(learnedProbability[i] - probability[i], 2) / learnedProbability[i];
+                //result += Math.Pow(count[i] / array.Length - probability[i], 2) / probability[i];
             }
 
             //result *= array.Length;
 
-            return result;
+            double delta, lyambda, max = 0;
+
+            for (int i = 0; i < countNeurons; i++)
+            {
+                delta = Math.Abs(learnedProbability[i] - probability[i]);
+                if (delta > max)
+                {
+                    max = delta;
+                }
+            }
+
+            lyambda = max * Math.Sqrt(countNeurons);
+
+            new CheckForm(result, countNeurons, lyambda).ShowDialog();
         }
 
         private void ToolStripMenuItemWorking_Click(object sender, EventArgs e)
@@ -431,6 +488,7 @@ namespace DiplomaApproximation
             double[] values;
             double error;
             double res = 0;
+            int countNeurons = network.CountNeurons;
 
             while (true)
             {
@@ -439,24 +497,25 @@ namespace DiplomaApproximation
                 double[] array = Download(false);
                 if (array != null)
                 {
-                    Generate(array, learnedX.Length, "", false);
-                    values = new double[learnedX.Length];
-                    for (int i = 0; i < learnedX.Length; i++)
+                    Generate(array, "", false);
+                    values = new double[countNeurons];
+                    for (int i = 0; i < countNeurons; i++)
                     {
                         double value = network.OutputValue(ArrayX[i]);
                         values[i] = value;
                         error += Math.Pow(value - ArrayY[i], 2);
                     }
 
-                    res = Math.Sqrt(error / (learnedX.Length - 1));
+                    res = Math.Sqrt(error / (countNeurons - 1));
                     SetNewValue(ArrayX, ArrayY);
 
                     try
                     {
                         textBoxErrorWorking.Invoke((MethodInvoker)delegate { textBoxErrorWorking.Text = res.ToString(); });
-                        textBoxPirson.Invoke((MethodInvoker)delegate { textBoxPirson.Text = ChiSquare().ToString(); });
                     }
                     catch { }
+
+                    Check();
 
                     var result = MessageBox.Show("Результат: " + res.ToString() + "\nЗагрузить следующий?", "Работоспособность сети", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.No)

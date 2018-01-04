@@ -25,7 +25,8 @@ namespace DiplomaApproximation
                 formMain.InitializeNetwork(Int32.Parse(textBoxCountItterations.Text),
                     Double.Parse(textBoxCoefficient.Text),
                     Double.Parse(textBoxMoment.Text),
-                    Double.Parse(textBoxError.Text));
+                    Double.Parse(textBoxError.Text),
+                    int.Parse(textBoxCountNeurons.Text));
 
                 DialogResult = DialogResult.OK;
                 ButtonCancel_Click(sender, e);

@@ -11,6 +11,7 @@ namespace DiplomaApproximation.Web
         public double LearningCoefficient { get; private set; }
         public double Momentum { get; private set; }
         public double Error { get; private set; }
+        public int CountNeurons { get; private set; }
 
         /*public Network(int countHideNeurons, double[] arrayOfX)
         {
@@ -19,7 +20,7 @@ namespace DiplomaApproximation.Web
 
         public Network()
         {
-            //Layer = new Layer();
+
         }
 
         public void InitCenters(int countHideNeurons, double[] arrayOfX)
@@ -46,10 +47,10 @@ namespace DiplomaApproximation.Web
         {
             err = 0;
             
-            double[] mas = new double[arrayOfX.Length];
+            double[] mas = new double[CountNeurons];
             
 
-            for (int i = 0; i < arrayOfX.Length; i++)
+            for (int i = 0; i < CountNeurons; i++)
             {
                 double y = OutputValue(arrayOfX[i]);
                 
@@ -65,7 +66,7 @@ namespace DiplomaApproximation.Web
             }
 
             FormMain.Set(arrayOfX, mas);
-            err = Math.Sqrt(err / (Layer.Neurons.Length - 1));
+            err = Math.Sqrt(err / (CountNeurons - 1));
             return (err <= Error);
         }
 
@@ -92,12 +93,13 @@ namespace DiplomaApproximation.Web
             form.DrawError(errorsList.ToArray(), XList.ToArray());
         }
 
-        public void Init(int countLearningItterations, double learningCoefficient, double momentum, double error)
+        public void Init(int countLearningItterations, double learningCoefficient, double momentum, double error, int countNeurons)
         {
             CountLearningItterations = countLearningItterations;
             LearningCoefficient = learningCoefficient;
             Momentum = momentum;
             Error = error;
+            CountNeurons = countNeurons;
         }
     }
 }

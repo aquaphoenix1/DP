@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chartHystogram = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,20 +56,20 @@
             // 
             // chartHystogram
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartHystogram.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartHystogram.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chartHystogram.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartHystogram.Legends.Add(legend3);
             this.chartHystogram.Location = new System.Drawing.Point(12, 43);
             this.chartHystogram.Name = "chartHystogram";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Выборка";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Сеть";
-            this.chartHystogram.Series.Add(series1);
-            this.chartHystogram.Series.Add(series2);
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Выборка";
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Сеть";
+            this.chartHystogram.Series.Add(series5);
+            this.chartHystogram.Series.Add(series6);
             this.chartHystogram.Size = new System.Drawing.Size(481, 425);
             this.chartHystogram.TabIndex = 0;
             this.chartHystogram.Text = "chart1";

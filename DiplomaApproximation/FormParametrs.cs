@@ -151,7 +151,6 @@ namespace DiplomaApproximation
         {
             try
             {
-                int count;
                 textBox1.Text = textBox1.Text.Replace('.', ',');
                 textBox2.Text = textBox2.Text.Replace('.', ',');
 
@@ -160,19 +159,14 @@ namespace DiplomaApproximation
                     textBoxCount.Text = "2000";
                 }
 
-                if ((count = Int32.Parse(textBoxCountCloset.Text)) < 10)
-                {
-                    textBoxCountCloset.Text = "10"; count = 10;
-                }
-
-                double[] array = new double[count];
+                double[] array = new double[formMain.GetCountNeurons()];
                 switch (comboBoxDistribution.SelectedItem.ToString())
                 {
                     case "Арксинус":
                         {
                             array = new Arcsinus(Double.Parse(textBox1.Text), Int32.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Arcsinus", true);
+                            formMain.Generate(array, "Arcsinus", true);
                             CloseForm();
                             break;
                         }
@@ -180,7 +174,7 @@ namespace DiplomaApproximation
                         {
                             array = new ExponentialOneway(Double.Parse(textBox1.Text), Int32.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Exponential", true);
+                            formMain.Generate(array, "Exponential", true);
                             CloseForm();
                             break;
                         }
@@ -188,7 +182,7 @@ namespace DiplomaApproximation
                         {
                             array = new Laplas(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), Int32.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Laplas", true);
+                            formMain.Generate(array, "Laplas", true);
                             CloseForm();
                             break;
                         }
@@ -196,7 +190,7 @@ namespace DiplomaApproximation
                         {
                             array = new Normal(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), Int32.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Normal", true);
+                            formMain.Generate(array, "Normal", true);
                             CloseForm();
                             break;
                         }
@@ -204,7 +198,7 @@ namespace DiplomaApproximation
                         {
                             array = new Relei(Double.Parse(textBox1.Text), Int32.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Relei", true);
+                            formMain.Generate(array, "Relei", true);
                             CloseForm();
                             break;
                         }
@@ -212,7 +206,7 @@ namespace DiplomaApproximation
                         {
                             array = new Simpson(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), Int32.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Simpson", true);
+                            formMain.Generate(array, "Simpson", true);
                             CloseForm();
                             break;
                         }
@@ -220,7 +214,7 @@ namespace DiplomaApproximation
                         {
                             array = new Koshi(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), int.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Koshi", true);
+                            formMain.Generate(array, "Koshi", true);
                             CloseForm();
                             break;
                         }
@@ -228,7 +222,7 @@ namespace DiplomaApproximation
                         {
                             array = new Uniform(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), int.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Uniform", true);
+                            formMain.Generate(array, "Uniform", true);
                             CloseForm();
                             break;
                         }
@@ -236,7 +230,7 @@ namespace DiplomaApproximation
                         {
                             array = new Veibull(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), int.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Veibul", true);
+                            formMain.Generate(array, "Veibul", true);
                             CloseForm();
                             break;
                         }
