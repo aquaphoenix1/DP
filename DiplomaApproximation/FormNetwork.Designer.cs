@@ -48,7 +48,7 @@
             this.textBoxError.Name = "textBoxError";
             this.textBoxError.Size = new System.Drawing.Size(100, 20);
             this.textBoxError.TabIndex = 31;
-            this.textBoxError.Text = "0.0001";
+            this.textBoxError.Text = "0.00001";
             // 
             // labelError
             // 
@@ -112,7 +112,6 @@
             // 
             // textBoxCountNeurons
             // 
-            this.textBoxCountNeurons.Enabled = false;
             this.textBoxCountNeurons.Location = new System.Drawing.Point(12, 25);
             this.textBoxCountNeurons.Name = "textBoxCountNeurons";
             this.textBoxCountNeurons.Size = new System.Drawing.Size(100, 20);

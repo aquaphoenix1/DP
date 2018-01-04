@@ -46,9 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Distributions\Arcsinus.cs" />
     <Compile Include="Distributions\ExponentialOneway.cs" />
     <Compile Include="Distributions\IDistribution.cs" />
+    <Compile Include="Distributions\Koshi.cs" />
+    <Compile Include="Distributions\Laplas.cs" />
     <Compile Include="Distributions\Normal.cs" />
+    <Compile Include="Distributions\Relei.cs" />
+    <Compile Include="Distributions\Simpson.cs" />
+    <Compile Include="Distributions\Uniform.cs" />
+    <Compile Include="Distributions\Veibull.cs" />
     <Compile Include="FormError.cs">
       <SubType>Form</SubType>
     </Compile>

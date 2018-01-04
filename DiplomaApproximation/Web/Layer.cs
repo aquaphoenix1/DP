@@ -23,6 +23,11 @@ namespace DiplomaApproximation.Web
             }
         }
 
+        public Layer()
+        {
+
+        }
+
         private double MaximumRadius()
         {
             double max = Neurons[1].Center - Neurons[0].Center;

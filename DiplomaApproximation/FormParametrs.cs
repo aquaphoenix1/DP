@@ -102,6 +102,48 @@ namespace DiplomaApproximation
                         textBox2.Visible = true;
                         break;
                     }
+                case "Коши":
+                    {
+                        label1.Visible = true;
+                        label1.Enabled = true;
+                        label1.Text = "Коэффициент mu";
+                        textBox1.Enabled = true;
+                        textBox1.Visible = true;
+                        label2.Visible = true;
+                        label2.Enabled = true;
+                        label2.Text = "Коэффициент a";
+                        textBox2.Enabled = true;
+                        textBox2.Visible = true;
+                        break;
+                    }
+                case "Равномерный":
+                    {
+                        label1.Visible = true;
+                        label1.Enabled = true;
+                        label1.Text = "Коэффициент a";
+                        textBox1.Enabled = true;
+                        textBox1.Visible = true;
+                        label2.Visible = true;
+                        label2.Enabled = true;
+                        label2.Text = "Коэффициент b";
+                        textBox2.Enabled = true;
+                        textBox2.Visible = true;
+                        break;
+                    }
+                case "Вейбулл":
+                    {
+                        label1.Visible = true;
+                        label1.Enabled = true;
+                        label1.Text = "Коэффициент a";
+                        textBox1.Enabled = true;
+                        textBox1.Visible = true;
+                        label2.Visible = true;
+                        label2.Enabled = true;
+                        label2.Text = "Коэффициент b";
+                        textBox2.Enabled = true;
+                        textBox2.Visible = true;
+                        break;
+                    }
             }
         }
 
@@ -126,46 +168,78 @@ namespace DiplomaApproximation
                 double[] array = new double[count];
                 switch (comboBoxDistribution.SelectedItem.ToString())
                 {
-                    /*case "Арксинус":
+                    case "Арксинус":
                         {
-                            formMain.Generate(new Arcsinus(Double.Parse(textBox1.Text), Int32.Parse(textBoxCount.Text)), count);
+                            array = new Arcsinus(Double.Parse(textBox1.Text), Int32.Parse(textBoxCount.Text)).Generate();
+
+                            formMain.Generate(array, count, "Arcsinus", true);
                             CloseForm();
                             break;
-                        }*/
+                        }
                     case "Экспоненциальное":
                         {
                             array = new ExponentialOneway(Double.Parse(textBox1.Text), Int32.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Exponential");
+                            formMain.Generate(array, count, "Exponential", true);
                             CloseForm();
                             break;
                         }
-                    /*case "Лаплас":
+                    case "Лаплас":
                         {
-                            formMain.Generate(new Laplas(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), Int32.Parse(textBoxCount.Text)), count);
+                            array = new Laplas(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), Int32.Parse(textBoxCount.Text)).Generate();
+
+                            formMain.Generate(array, count, "Laplas", true);
                             CloseForm();
                             break;
-                        }*/
+                        }
                     case "Нормальное":
                         {
                             array = new Normal(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), Int32.Parse(textBoxCount.Text)).Generate();
 
-                            formMain.Generate(array, count, "Normal");
+                            formMain.Generate(array, count, "Normal", true);
                             CloseForm();
                             break;
                         }
-                    /*case "Релей":
+                    case "Релей":
                         {
-                            formMain.Generate(new Relei(Double.Parse(textBox1.Text), Int32.Parse(textBoxCount.Text)), count);
+                            array = new Relei(Double.Parse(textBox1.Text), Int32.Parse(textBoxCount.Text)).Generate();
+
+                            formMain.Generate(array, count, "Relei", true);
                             CloseForm();
                             break;
                         }
                     case "Симпсон":
                         {
-                            formMain.Generate(new Simpson(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), Int32.Parse(textBoxCount.Text)), count);
+                            array = new Simpson(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), Int32.Parse(textBoxCount.Text)).Generate();
+
+                            formMain.Generate(array, count, "Simpson", true);
                             CloseForm();
                             break;
-                        }*/
+                        }
+                    case "Коши":
+                        {
+                            array = new Koshi(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), int.Parse(textBoxCount.Text)).Generate();
+
+                            formMain.Generate(array, count, "Koshi", true);
+                            CloseForm();
+                            break;
+                        }
+                    case "Равномерный":
+                        {
+                            array = new Uniform(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), int.Parse(textBoxCount.Text)).Generate();
+
+                            formMain.Generate(array, count, "Uniform", true);
+                            CloseForm();
+                            break;
+                        }
+                    case "Вейбулл":
+                        {
+                            array = new Veibull(Double.Parse(textBox1.Text), Double.Parse(textBox2.Text), int.Parse(textBoxCount.Text)).Generate();
+
+                            formMain.Generate(array, count, "Veibul", true);
+                            CloseForm();
+                            break;
+                        }
                 }
             }
             catch

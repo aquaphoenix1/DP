@@ -21,12 +21,17 @@ namespace DiplomaApproximation
         private double[] learnedX,
             learnedY;
 
+        private double[] probability;
+        private int[] count;
+
         public FormMain()
         {
             InitializeComponent();
 
             chartHystogram.Series["Выборка"].ChartType = SeriesChartType.Line;
             chartHystogram.Series["Сеть"].ChartType = SeriesChartType.Line;
+
+            chartHystogram.ChartAreas[0].AxisX.Enabled = AxisEnabled.False;
 
             form = this;
         }
@@ -60,7 +65,7 @@ namespace DiplomaApproximation
             }
         }
 
-        public void Generate(double[] arrayDistribution, int countIntervals, string name)
+        public void Generate(double[] arrayDistribution, int countIntervals, string name, bool isInitialize)
         {
             Array.Sort(arrayDistribution);
             double[] arrayOfX = new double[countIntervals],
@@ -91,6 +96,17 @@ namespace DiplomaApproximation
             }
 
             arrayOfY[arrayOfY.Length - 1] = arrayDistribution.Length - sum;
+
+            double[] counter = new double[arrayOfY.Length];
+            Array.Copy(arrayOfY, counter, arrayOfY.Length);
+
+            count = new int[counter.Length];
+
+            for (int i = 0; i < counter.Length; i++)
+            {
+                count[i] = (int)counter[i];
+            }
+
             for (int i = 0; i < countIntervals; i++)
             {
                 arrayOfY[i] /= arrayDistribution.Length;
@@ -112,6 +128,9 @@ namespace DiplomaApproximation
                 arrayOfY[i] /= step;
             }
 
+            double[] buf = new double[arrayOfY.Length];
+            Array.Copy(arrayOfY, buf, arrayOfY.Length);
+
             MiniMax(arrayOfY);
             MiniMax(arrayOfX);
             chartHystogram.Series["Выборка"].Points.DataBindXY(arrayOfX, arrayOfY);
@@ -119,13 +138,19 @@ namespace DiplomaApproximation
             ArrayX = arrayOfX;
             ArrayY = arrayOfY;
 
-            if (!name.Equals(""))
+            if (isInitialize)
             {
                 nameDistribution = name;
                 array = arrayDistribution;
 
                 learnedX = ArrayX;
                 learnedY = ArrayY;
+
+                network.InitCenters(ArrayX.Length, learnedX);
+
+                chartHystogram.Series["Выборка"].Points.DataBindXY(learnedX, learnedY);
+
+                probability = buf;
             }
         }
 
@@ -139,11 +164,8 @@ namespace DiplomaApproximation
 
         public void InitializeNetwork(int countLearningItterations, double learningCoefficient, double momentum, double error)
         {
-            network = new Network(ArrayX.Length, learnedX);
-
+            network = new Network();
             network.Init(countLearningItterations, learningCoefficient, momentum, error);
-
-            learnNetworkToolStripMenuItem.Enabled = true;
         }
 
         static FormMain form;
@@ -155,7 +177,7 @@ namespace DiplomaApproximation
             });
         }
 
-        private double[] Download()
+        private double[] Download(bool isInitialize)
         {
             OpenFileDialog fileDialog = new OpenFileDialog
             {
@@ -175,9 +197,10 @@ namespace DiplomaApproximation
                     {
                         arr[i] = Double.Parse(array[i]);
                     }
-                }
 
-                networkParametrsToolStripMenuItem.Enabled = true;
+                    Generate(arr, network.Layer.Neurons.Length, "", isInitialize);
+                    learnNetworkToolStripMenuItem.Enabled = true;
+                }
             }
             catch { arr = null; }
 
@@ -220,8 +243,8 @@ namespace DiplomaApproximation
                 path += "\\" + nameDistribution + "\\";
 
                 path += i.ToString() + ".txt";
-
-                array = new Normal(i - 10, i, 5000).Generate();
+                Random rand = new Random();
+                array = new ExponentialOneway(rand.NextDouble(), 5000).Generate();
 
                 string[] arr = new string[array.Length];
                 for (int j = 0; j < array.Length; j++)
@@ -232,7 +255,7 @@ namespace DiplomaApproximation
                 System.IO.File.WriteAllLines(path, arr);
 
             }*/
-            
+
             System.Collections.Generic.List<double> errors = new System.Collections.Generic.List<double>();
             double[] values;
             int j = 0;
@@ -245,16 +268,16 @@ namespace DiplomaApproximation
                 double[] array = Download(j.ToString());
                 if (array != null)
                 {
-                    Generate(array, 20, "");
-                    values = new double[ArrayX.Length];
-                    for (int i = 0; i < ArrayX.Length; i++)
+                    Generate(array, learnedX.Length, "", false);
+                    values = new double[learnedX.Length];
+                    for (int i = 0; i < learnedX.Length; i++)
                     {
                         double value = network.OutputValue(ArrayX[i]);
                         values[i] = value;
                         error += Math.Pow(value - ArrayY[i], 2);
                     }
 
-                    errors.Add(Math.Sqrt(error / (ArrayX.Length - 1)));
+                    errors.Add(Math.Sqrt(error / (learnedX.Length - 1)));
                     SetNewValue(ArrayX, ArrayY);
                 }
                 else
@@ -276,7 +299,7 @@ namespace DiplomaApproximation
 
         private void DownloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Download();
+            Download(true);
         }
 
         private void TestNetworkToolStripMenuItem_Click(object sender, EventArgs e)
@@ -293,8 +316,8 @@ namespace DiplomaApproximation
 
             if(array != null)
             {
-                networkParametrsToolStripMenuItem.Enabled = true;
                 chartHystogram.Series["Сеть"].Points.Clear();
+                learnNetworkToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -307,7 +330,9 @@ namespace DiplomaApproximation
             if (form.DialogResult == DialogResult.OK)
             {
                 chartHystogram.Series["Сеть"].Points.Clear();
-                chartHystogram.Series["Выборка"].Points.DataBindXY(learnedX, learnedY);
+
+                fileToolStripMenuItem.Enabled = true;
+                generatorToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -382,6 +407,25 @@ namespace DiplomaApproximation
             }
         }
 
+        private double ChiSquare()
+        {
+            double result = 0.0;
+
+            for (int i = 0; i < learnedX.Length; i++)
+            {
+                if(probability[i] == 0)
+                {
+                    continue;
+                }
+                //result += Math.Pow(count[i] - array.Length, 2) / array.Length;
+                result += Math.Pow(count[i] / array.Length - probability[i], 2) / probability[i];
+            }
+
+            //result *= array.Length;
+
+            return result;
+        }
+
         private void ToolStripMenuItemWorking_Click(object sender, EventArgs e)
         {
             double[] values;
@@ -392,24 +436,25 @@ namespace DiplomaApproximation
             {
                 error = 0;
 
-                double[] array = Download();
+                double[] array = Download(false);
                 if (array != null)
                 {
-                    Generate(array, 20, "");
-                    values = new double[ArrayX.Length];
-                    for (int i = 0; i < ArrayX.Length; i++)
+                    Generate(array, learnedX.Length, "", false);
+                    values = new double[learnedX.Length];
+                    for (int i = 0; i < learnedX.Length; i++)
                     {
                         double value = network.OutputValue(ArrayX[i]);
                         values[i] = value;
                         error += Math.Pow(value - ArrayY[i], 2);
                     }
 
-                    res = Math.Sqrt(error / (ArrayX.Length - 1));
+                    res = Math.Sqrt(error / (learnedX.Length - 1));
                     SetNewValue(ArrayX, ArrayY);
 
                     try
                     {
                         textBoxErrorWorking.Invoke((MethodInvoker)delegate { textBoxErrorWorking.Text = res.ToString(); });
+                        textBoxPirson.Invoke((MethodInvoker)delegate { textBoxPirson.Text = ChiSquare().ToString(); });
                     }
                     catch { }
 

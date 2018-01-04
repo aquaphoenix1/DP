@@ -12,7 +12,17 @@ namespace DiplomaApproximation.Web
         public double Momentum { get; private set; }
         public double Error { get; private set; }
 
-        public Network(int countHideNeurons, double[] arrayOfX)
+        /*public Network(int countHideNeurons, double[] arrayOfX)
+        {
+            Layer = new Layer(countHideNeurons, arrayOfX);
+        }*/
+
+        public Network()
+        {
+            //Layer = new Layer();
+        }
+
+        public void InitCenters(int countHideNeurons, double[] arrayOfX)
         {
             Layer = new Layer(countHideNeurons, arrayOfX);
         }

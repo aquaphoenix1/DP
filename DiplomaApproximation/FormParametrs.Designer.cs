@@ -68,7 +68,10 @@
             "Лаплас",
             "Нормальное",
             "Релей",
-            "Симпсон"});
+            "Симпсон",
+            "Коши",
+            "Равномерный",
+            "Вейбулл"});
             this.comboBoxDistribution.Location = new System.Drawing.Point(12, 12);
             this.comboBoxDistribution.Name = "comboBoxDistribution";
             this.comboBoxDistribution.Size = new System.Drawing.Size(121, 21);
