@@ -40,14 +40,22 @@
             this.labelCountNeurons = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonAccept = new System.Windows.Forms.Button();
+            this.comboBoxInit = new System.Windows.Forms.ComboBox();
+            this.labelInit = new System.Windows.Forms.Label();
+            this.textBoxStartTemperature = new System.Windows.Forms.TextBox();
+            this.labelStartTemperature = new System.Windows.Forms.Label();
+            this.textBoxKoefficientTemperature = new System.Windows.Forms.TextBox();
+            this.labelKoefficientOfTemperature = new System.Windows.Forms.Label();
+            this.textBoxStopTemperature = new System.Windows.Forms.TextBox();
+            this.labelStopTemperature = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxError
             // 
             this.textBoxError.Location = new System.Drawing.Point(12, 150);
             this.textBoxError.Name = "textBoxError";
-            this.textBoxError.Size = new System.Drawing.Size(100, 20);
-            this.textBoxError.TabIndex = 31;
+            this.textBoxError.Size = new System.Drawing.Size(122, 20);
+            this.textBoxError.TabIndex = 3;
             this.textBoxError.Text = "0.00001";
             // 
             // labelError
@@ -56,16 +64,16 @@
             this.labelError.Location = new System.Drawing.Point(12, 134);
             this.labelError.Name = "labelError";
             this.labelError.Size = new System.Drawing.Size(124, 13);
-            this.labelError.TabIndex = 30;
+            this.labelError.TabIndex = 14;
             this.labelError.Text = "Погрешность обучения";
             // 
             // textBoxMoment
             // 
             this.textBoxMoment.Location = new System.Drawing.Point(12, 189);
             this.textBoxMoment.Name = "textBoxMoment";
-            this.textBoxMoment.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMoment.TabIndex = 28;
-            this.textBoxMoment.Text = "0.1";
+            this.textBoxMoment.Size = new System.Drawing.Size(122, 20);
+            this.textBoxMoment.TabIndex = 4;
+            this.textBoxMoment.Text = "0.01";
             // 
             // labelMoment
             // 
@@ -73,7 +81,7 @@
             this.labelMoment.Location = new System.Drawing.Point(9, 173);
             this.labelMoment.Name = "labelMoment";
             this.labelMoment.Size = new System.Drawing.Size(47, 13);
-            this.labelMoment.TabIndex = 26;
+            this.labelMoment.TabIndex = 15;
             this.labelMoment.Text = "Момент";
             // 
             // labelCoefficient
@@ -82,24 +90,24 @@
             this.labelCoefficient.Location = new System.Drawing.Point(9, 87);
             this.labelCoefficient.Name = "labelCoefficient";
             this.labelCoefficient.Size = new System.Drawing.Size(126, 13);
-            this.labelCoefficient.TabIndex = 25;
+            this.labelCoefficient.TabIndex = 13;
             this.labelCoefficient.Text = "Коэффициент обучения";
             // 
             // textBoxCoefficient
             // 
             this.textBoxCoefficient.Location = new System.Drawing.Point(12, 107);
             this.textBoxCoefficient.Name = "textBoxCoefficient";
-            this.textBoxCoefficient.Size = new System.Drawing.Size(100, 20);
-            this.textBoxCoefficient.TabIndex = 24;
-            this.textBoxCoefficient.Text = "0.1";
+            this.textBoxCoefficient.Size = new System.Drawing.Size(122, 20);
+            this.textBoxCoefficient.TabIndex = 2;
+            this.textBoxCoefficient.Text = "0.001";
             // 
             // textBoxCountItterations
             // 
             this.textBoxCountItterations.Location = new System.Drawing.Point(12, 64);
             this.textBoxCountItterations.Name = "textBoxCountItterations";
-            this.textBoxCountItterations.Size = new System.Drawing.Size(100, 20);
-            this.textBoxCountItterations.TabIndex = 23;
-            this.textBoxCountItterations.Text = "3000";
+            this.textBoxCountItterations.Size = new System.Drawing.Size(122, 20);
+            this.textBoxCountItterations.TabIndex = 1;
+            this.textBoxCountItterations.Text = "30000";
             // 
             // labelCountItterations
             // 
@@ -107,16 +115,16 @@
             this.labelCountItterations.Location = new System.Drawing.Point(9, 48);
             this.labelCountItterations.Name = "labelCountItterations";
             this.labelCountItterations.Size = new System.Drawing.Size(154, 13);
-            this.labelCountItterations.TabIndex = 22;
+            this.labelCountItterations.TabIndex = 12;
             this.labelCountItterations.Text = "Количество циклов обучения";
             // 
             // textBoxCountNeurons
             // 
             this.textBoxCountNeurons.Location = new System.Drawing.Point(12, 25);
             this.textBoxCountNeurons.Name = "textBoxCountNeurons";
-            this.textBoxCountNeurons.Size = new System.Drawing.Size(100, 20);
-            this.textBoxCountNeurons.TabIndex = 20;
-            this.textBoxCountNeurons.Text = "20";
+            this.textBoxCountNeurons.Size = new System.Drawing.Size(122, 20);
+            this.textBoxCountNeurons.TabIndex = 0;
+            this.textBoxCountNeurons.Text = "15";
             // 
             // labelCountNeurons
             // 
@@ -124,35 +132,128 @@
             this.labelCountNeurons.Location = new System.Drawing.Point(9, 9);
             this.labelCountNeurons.Name = "labelCountNeurons";
             this.labelCountNeurons.Size = new System.Drawing.Size(195, 13);
-            this.labelCountNeurons.TabIndex = 19;
+            this.labelCountNeurons.TabIndex = 11;
             this.labelCountNeurons.Text = "Количество нейронов скрытого слоя";
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(115, 215);
+            this.buttonCancel.Location = new System.Drawing.Point(122, 255);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(89, 23);
-            this.buttonCancel.TabIndex = 17;
+            this.buttonCancel.TabIndex = 10;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // buttonAccept
             // 
-            this.buttonAccept.Location = new System.Drawing.Point(12, 215);
+            this.buttonAccept.Location = new System.Drawing.Point(12, 255);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(97, 23);
-            this.buttonAccept.TabIndex = 16;
+            this.buttonAccept.TabIndex = 9;
             this.buttonAccept.Text = "Принять";
             this.buttonAccept.UseVisualStyleBackColor = true;
             this.buttonAccept.Click += new System.EventHandler(this.ButtonAccept_Click);
+            // 
+            // comboBoxInit
+            // 
+            this.comboBoxInit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxInit.FormattingEnabled = true;
+            this.comboBoxInit.Items.AddRange(new object[] {
+            "Случайные веса",
+            "Имитация отжига"});
+            this.comboBoxInit.Location = new System.Drawing.Point(12, 228);
+            this.comboBoxInit.Name = "comboBoxInit";
+            this.comboBoxInit.Size = new System.Drawing.Size(122, 21);
+            this.comboBoxInit.TabIndex = 5;
+            this.comboBoxInit.SelectedIndexChanged += new System.EventHandler(this.ComboBoxInit_SelectedIndexChanged);
+            // 
+            // labelInit
+            // 
+            this.labelInit.AutoSize = true;
+            this.labelInit.Location = new System.Drawing.Point(9, 212);
+            this.labelInit.Name = "labelInit";
+            this.labelInit.Size = new System.Drawing.Size(125, 13);
+            this.labelInit.TabIndex = 16;
+            this.labelInit.Text = "Способ инициализации";
+            // 
+            // textBoxStartTemperature
+            // 
+            this.textBoxStartTemperature.Enabled = false;
+            this.textBoxStartTemperature.Location = new System.Drawing.Point(13, 268);
+            this.textBoxStartTemperature.Name = "textBoxStartTemperature";
+            this.textBoxStartTemperature.Size = new System.Drawing.Size(122, 20);
+            this.textBoxStartTemperature.TabIndex = 6;
+            this.textBoxStartTemperature.Text = "1";
+            this.textBoxStartTemperature.Visible = false;
+            // 
+            // labelStartTemperature
+            // 
+            this.labelStartTemperature.AutoSize = true;
+            this.labelStartTemperature.Enabled = false;
+            this.labelStartTemperature.Location = new System.Drawing.Point(9, 252);
+            this.labelStartTemperature.Name = "labelStartTemperature";
+            this.labelStartTemperature.Size = new System.Drawing.Size(128, 13);
+            this.labelStartTemperature.TabIndex = 17;
+            this.labelStartTemperature.Text = "Стартовая температура";
+            this.labelStartTemperature.Visible = false;
+            // 
+            // textBoxKoefficientTemperature
+            // 
+            this.textBoxKoefficientTemperature.Enabled = false;
+            this.textBoxKoefficientTemperature.Location = new System.Drawing.Point(12, 307);
+            this.textBoxKoefficientTemperature.Name = "textBoxKoefficientTemperature";
+            this.textBoxKoefficientTemperature.Size = new System.Drawing.Size(122, 20);
+            this.textBoxKoefficientTemperature.TabIndex = 7;
+            this.textBoxKoefficientTemperature.Text = "0.01";
+            this.textBoxKoefficientTemperature.Visible = false;
+            // 
+            // labelKoefficientOfTemperature
+            // 
+            this.labelKoefficientOfTemperature.AutoSize = true;
+            this.labelKoefficientOfTemperature.Enabled = false;
+            this.labelKoefficientOfTemperature.Location = new System.Drawing.Point(9, 291);
+            this.labelKoefficientOfTemperature.Name = "labelKoefficientOfTemperature";
+            this.labelKoefficientOfTemperature.Size = new System.Drawing.Size(213, 13);
+            this.labelKoefficientOfTemperature.TabIndex = 18;
+            this.labelKoefficientOfTemperature.Text = "Коэффициент уменьшения температуры";
+            this.labelKoefficientOfTemperature.Visible = false;
+            // 
+            // textBoxStopTemperature
+            // 
+            this.textBoxStopTemperature.Enabled = false;
+            this.textBoxStopTemperature.Location = new System.Drawing.Point(12, 346);
+            this.textBoxStopTemperature.Name = "textBoxStopTemperature";
+            this.textBoxStopTemperature.Size = new System.Drawing.Size(119, 20);
+            this.textBoxStopTemperature.TabIndex = 8;
+            this.textBoxStopTemperature.Text = "0.1";
+            this.textBoxStopTemperature.Visible = false;
+            // 
+            // labelStopTemperature
+            // 
+            this.labelStopTemperature.AutoSize = true;
+            this.labelStopTemperature.Enabled = false;
+            this.labelStopTemperature.Location = new System.Drawing.Point(12, 330);
+            this.labelStopTemperature.Name = "labelStopTemperature";
+            this.labelStopTemperature.Size = new System.Drawing.Size(107, 13);
+            this.labelStopTemperature.TabIndex = 19;
+            this.labelStopTemperature.Text = "Условие остановки";
+            this.labelStopTemperature.Visible = false;
             // 
             // FormNetwork
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(217, 244);
+            this.ClientSize = new System.Drawing.Size(223, 286);
             this.ControlBox = false;
+            this.Controls.Add(this.textBoxStopTemperature);
+            this.Controls.Add(this.labelStopTemperature);
+            this.Controls.Add(this.textBoxKoefficientTemperature);
+            this.Controls.Add(this.labelKoefficientOfTemperature);
+            this.Controls.Add(this.textBoxStartTemperature);
+            this.Controls.Add(this.labelStartTemperature);
+            this.Controls.Add(this.labelInit);
+            this.Controls.Add(this.comboBoxInit);
             this.Controls.Add(this.textBoxError);
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.textBoxMoment);
@@ -168,6 +269,7 @@
             this.Name = "FormNetwork";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Параметры сети";
+            this.Load += new System.EventHandler(this.FormNetwork_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,5 +289,13 @@
         private System.Windows.Forms.Label labelCountNeurons;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonAccept;
+        private System.Windows.Forms.ComboBox comboBoxInit;
+        private System.Windows.Forms.Label labelInit;
+        private System.Windows.Forms.TextBox textBoxStartTemperature;
+        private System.Windows.Forms.Label labelStartTemperature;
+        private System.Windows.Forms.TextBox textBoxKoefficientTemperature;
+        private System.Windows.Forms.Label labelKoefficientOfTemperature;
+        private System.Windows.Forms.TextBox textBoxStopTemperature;
+        private System.Windows.Forms.Label labelStopTemperature;
     }
 }

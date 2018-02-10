@@ -39,26 +39,26 @@ namespace DiplomaApproximation
 
             for (k = 1; k < 14; k++)
             {
-                if(value < matrix[count - 10, k])
+                if (value < matrix[count - 10, k])
                 {
                     dataGridViewChiSquare.Rows[count - 10].Cells[k].Style.BackColor = System.Drawing.Color.Red;
                     break;
                 }
             }
 
-            labelIsChiSquare.Text = (k < 14) ? "Критерий Пирсона принят с вероятностью " + dataGridViewChiSquare.Columns[k].HeaderText: "Критерий Пирсона отвергнут";
+            labelIsChiSquare.Text = (k < 14) ? "Критерий Пирсона принят с вероятностью " + dataGridViewChiSquare.Columns[k].HeaderText : "Критерий Пирсона отвергнут";
 
             dataGridViewKolmogorov.Rows.Add(1);
-            double[] array = {0.29, 0.33, 0.4, 0.45, 0.49, 0.51, 0.55, 0.76, 0.83, 0.89, 0.97, 1.04, 1.23 };
+            double[] array = { 0.29, 0.32, 0.33, 0.4, 0.45, 0.49, 0.51, 0.55, 0.76, 0.83, 0.89, 0.97, 1.04, 1.23 };
 
             for (int i = 0; i < array.Length; i++)
             {
                 dataGridViewKolmogorov.Rows[0].Cells[i].Value = array[i];
             }
-            
+
             for (k = 0; k < array.Length; k++)
             {
-                if(lyambda < array[k])
+                if (lyambda < array[k])
                 {
                     dataGridViewKolmogorov.Rows[0].Cells[k].Style.BackColor = System.Drawing.Color.Red;
                     break;

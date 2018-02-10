@@ -56,7 +56,7 @@ namespace DiplomaApproximation
             return min;
         }
 
-        private void MiniMax(double[] array)
+        public void MiniMax(double[] array)
         {
             double min = FindMinAndMax(array, out double max);
             double difference = max - min;
@@ -184,10 +184,10 @@ namespace DiplomaApproximation
             }
         }
 
-        public void InitializeNetwork(int countLearningItterations, double learningCoefficient, double momentum, double error, int countNeurons)
+        public void InitializeNetwork(int countLearningItterations, double learningCoefficient, double momentum, double error, int countNeurons, string typeInit, double[] param)
         {
             network = new Network();
-            network.Init(countLearningItterations, learningCoefficient, momentum, error, countNeurons);
+            network.Init(countLearningItterations, learningCoefficient, momentum, error, countNeurons, typeInit, param);
         }
 
         public int GetCountNeurons()

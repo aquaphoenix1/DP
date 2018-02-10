@@ -12,11 +12,8 @@ namespace DiplomaApproximation.Web
         public double Momentum { get; private set; }
         public double Error { get; private set; }
         public int CountNeurons { get; private set; }
-
-        /*public Network(int countHideNeurons, double[] arrayOfX)
-        {
-            Layer = new Layer(countHideNeurons, arrayOfX);
-        }*/
+        public string TypeInitialization { get; private set; }
+        private double[] Param { get; set; }
 
         public Network()
         {
@@ -70,8 +67,71 @@ namespace DiplomaApproximation.Web
             return (err <= Error);
         }
 
+        private void Annealing()
+        {
+            Random rand = new Random();
+
+            double start = Param[0],
+                temperature = start,
+                rate = Param[1];
+
+            while (temperature > Param[2])
+            {
+                for (int j = 0; j < Layer.Neurons.Length; j++)
+                {
+                    double w, _w;
+
+                    if (j == Layer.Neurons.Length - 1)
+                    {
+                        w = OutputValue(Layer.Neurons[j].Weight);
+                        _w = OutputValue(Layer.Neurons[j - 1].Weight);
+                    }
+                    else
+                    {
+                        w = OutputValue(Layer.Neurons[j].Weight);
+                        _w = OutputValue(Layer.Neurons[j + 1].Weight);
+                    }
+
+                    double f = 0.0;
+
+                    if(_w > w)
+                    {
+                        f = _w;
+                    }
+                    else
+                    {
+                        double value = _w - w;
+
+                        if(rand.NextDouble() > Math.Exp(-value / (Layer.Neurons.Length * temperature)))
+                        {
+                            f = _w;
+                        }
+                        else
+                        {
+                            f = w;
+                        }
+                    }
+
+                    Layer.Neurons[j].Weight = f;
+
+                    temperature *= rate;
+                }
+
+                
+            }
+        }
+
         public void Learning(FormMain form, double[] arrayOfX, double[] arrayOfY)
         {
+            switch (TypeInitialization)
+            {
+                case "Имитация отжига":
+                    {
+                        Annealing();
+                        break;
+                    }
+            }
+
             List<double> errorsList = new List<double>();
             List<int> XList = new List<int>();
             int j = 0;
@@ -89,17 +149,19 @@ namespace DiplomaApproximation.Web
             }
 
             form.SwitchButton(true);
-            //form.ChangeTextBoxCurrentIterationAndError(false);
             form.DrawError(errorsList.ToArray(), XList.ToArray());
         }
 
-        public void Init(int countLearningItterations, double learningCoefficient, double momentum, double error, int countNeurons)
+        public void Init(int countLearningItterations, double learningCoefficient, double momentum, double error, int countNeurons, string typeInit, double[] param)
         {
             CountLearningItterations = countLearningItterations;
             LearningCoefficient = learningCoefficient;
             Momentum = momentum;
             Error = error;
             CountNeurons = countNeurons;
+
+            TypeInitialization = typeInit;
+            Param = param;
         }
     }
 }
