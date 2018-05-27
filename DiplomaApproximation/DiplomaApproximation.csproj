@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools.cs" />
     <Compile Include="Web\Layer.cs" />
     <Compile Include="Web\Network.cs" />
     <Compile Include="Web\Neuron.cs" />

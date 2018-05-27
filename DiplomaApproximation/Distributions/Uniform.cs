@@ -15,7 +15,7 @@ namespace DiplomaApproximation.Distributions
         /// 1                   y = 1
         /// </summary>
         /// <param name="a">Коэффициент a</param>
-        /// /// <param name="b">Коэффициент b</param>
+        /// <param name="b">Коэффициент b</param>
         /// <param name="count">Количество элементов выборки</param>
         public Uniform(double a, double b, int count)
         {
@@ -37,7 +37,7 @@ namespace DiplomaApproximation.Distributions
                     y = 1;
                 }
 
-                array[i] = (y == 0) ? 0 : (y == 1) ? 1 : a + y * (b - a);
+                array[i] = (y == 0) ? a : (y == 1) ? b : a + y * (b - a);
             }
             return array;
         }

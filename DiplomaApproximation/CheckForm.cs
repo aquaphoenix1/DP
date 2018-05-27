@@ -39,9 +39,16 @@ namespace DiplomaApproximation
 
             for (k = 1; k < 14; k++)
             {
-                if (value < matrix[count - 10, k])
+                try
                 {
-                    dataGridViewChiSquare.Rows[count - 10].Cells[k].Style.BackColor = System.Drawing.Color.Red;
+                    if (value < matrix[count - 10, k])
+                    {
+                        dataGridViewChiSquare.Rows[count - 10].Cells[k].Style.BackColor = System.Drawing.Color.Red;
+                        break;
+                    }
+                }
+                catch
+                {
                     break;
                 }
             }

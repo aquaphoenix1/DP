@@ -61,7 +61,7 @@
             this.MinimizeBox = false;
             this.Name = "FormError";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormError";
+            this.Text = "Ошибка обучения";
             ((System.ComponentModel.ISupportInitialize)(this.chartError)).EndInit();
             this.ResumeLayout(false);
 

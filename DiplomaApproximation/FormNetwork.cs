@@ -35,7 +35,7 @@ namespace DiplomaApproximation
                     double param = double.Parse(textBoxStartTemperature.Text);
                     if(param <= 0 || param > 1)
                     {
-                        throw new Exception();
+                        //throw new Exception();
                     }
 
                     arrayOfParametrs[0] = param;

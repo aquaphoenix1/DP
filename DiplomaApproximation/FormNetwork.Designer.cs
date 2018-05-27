@@ -56,7 +56,7 @@
             this.textBoxError.Name = "textBoxError";
             this.textBoxError.Size = new System.Drawing.Size(122, 20);
             this.textBoxError.TabIndex = 3;
-            this.textBoxError.Text = "0.00001";
+            this.textBoxError.Text = "0.001";
             // 
             // labelError
             // 
@@ -99,7 +99,7 @@
             this.textBoxCoefficient.Name = "textBoxCoefficient";
             this.textBoxCoefficient.Size = new System.Drawing.Size(122, 20);
             this.textBoxCoefficient.TabIndex = 2;
-            this.textBoxCoefficient.Text = "0.001";
+            this.textBoxCoefficient.Text = "0.01";
             // 
             // textBoxCountItterations
             // 
@@ -107,7 +107,7 @@
             this.textBoxCountItterations.Name = "textBoxCountItterations";
             this.textBoxCountItterations.Size = new System.Drawing.Size(122, 20);
             this.textBoxCountItterations.TabIndex = 1;
-            this.textBoxCountItterations.Text = "30000";
+            this.textBoxCountItterations.Text = "5000";
             // 
             // labelCountItterations
             // 
@@ -124,7 +124,7 @@
             this.textBoxCountNeurons.Name = "textBoxCountNeurons";
             this.textBoxCountNeurons.Size = new System.Drawing.Size(122, 20);
             this.textBoxCountNeurons.TabIndex = 0;
-            this.textBoxCountNeurons.Text = "15";
+            this.textBoxCountNeurons.Text = "20";
             // 
             // labelCountNeurons
             // 
@@ -205,7 +205,7 @@
             this.textBoxKoefficientTemperature.Name = "textBoxKoefficientTemperature";
             this.textBoxKoefficientTemperature.Size = new System.Drawing.Size(122, 20);
             this.textBoxKoefficientTemperature.TabIndex = 7;
-            this.textBoxKoefficientTemperature.Text = "0.01";
+            this.textBoxKoefficientTemperature.Text = "0.9";
             this.textBoxKoefficientTemperature.Visible = false;
             // 
             // labelKoefficientOfTemperature
@@ -244,7 +244,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(223, 286);
+            this.ClientSize = new System.Drawing.Size(223, 283);
             this.ControlBox = false;
             this.Controls.Add(this.textBoxStopTemperature);
             this.Controls.Add(this.labelStopTemperature);

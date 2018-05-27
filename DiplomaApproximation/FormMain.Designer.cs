@@ -34,11 +34,11 @@
             System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.chartHystogram = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
+            this.networkParametrsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.networkParametrsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.learnNetworkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopLearningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testNetworkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +49,6 @@
             this.labelCurrentIteration = new System.Windows.Forms.Label();
             this.labelError = new System.Windows.Forms.Label();
             this.labelErrorWorking = new System.Windows.Forms.Label();
-            this.textBoxPirson = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chartHystogram)).BeginInit();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
@@ -90,6 +89,13 @@
             this.menuStripMain.TabIndex = 5;
             this.menuStripMain.Text = "Menu";
             // 
+            // networkParametrsToolStripMenuItem
+            // 
+            this.networkParametrsToolStripMenuItem.Name = "networkParametrsToolStripMenuItem";
+            this.networkParametrsToolStripMenuItem.Size = new System.Drawing.Size(110, 20);
+            this.networkParametrsToolStripMenuItem.Text = "Параметры сети";
+            this.networkParametrsToolStripMenuItem.Click += new System.EventHandler(this.NetworkParametrsToolStripMenuItem_Click);
+            // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -121,13 +127,6 @@
             this.generatorToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.generatorToolStripMenuItem.Text = "Генератор";
             this.generatorToolStripMenuItem.Click += new System.EventHandler(this.GeneratorToolStripMenuItem_Click);
-            // 
-            // networkParametrsToolStripMenuItem
-            // 
-            this.networkParametrsToolStripMenuItem.Name = "networkParametrsToolStripMenuItem";
-            this.networkParametrsToolStripMenuItem.Size = new System.Drawing.Size(110, 20);
-            this.networkParametrsToolStripMenuItem.Text = "Параметры сети";
-            this.networkParametrsToolStripMenuItem.Click += new System.EventHandler(this.NetworkParametrsToolStripMenuItem_Click);
             // 
             // learnNetworkToolStripMenuItem
             // 
@@ -168,6 +167,7 @@
             this.textBoxErrorWorking.ReadOnly = true;
             this.textBoxErrorWorking.Size = new System.Drawing.Size(100, 20);
             this.textBoxErrorWorking.TabIndex = 6;
+            this.textBoxErrorWorking.Visible = false;
             // 
             // textBoxCurrentIteration
             // 
@@ -176,6 +176,7 @@
             this.textBoxCurrentIteration.ReadOnly = true;
             this.textBoxCurrentIteration.Size = new System.Drawing.Size(100, 20);
             this.textBoxCurrentIteration.TabIndex = 7;
+            this.textBoxCurrentIteration.Visible = false;
             // 
             // textBoxCurrentError
             // 
@@ -184,6 +185,7 @@
             this.textBoxCurrentError.ReadOnly = true;
             this.textBoxCurrentError.Size = new System.Drawing.Size(100, 20);
             this.textBoxCurrentError.TabIndex = 8;
+            this.textBoxCurrentError.Visible = false;
             // 
             // labelCurrentIteration
             // 
@@ -193,6 +195,7 @@
             this.labelCurrentIteration.Size = new System.Drawing.Size(102, 13);
             this.labelCurrentIteration.TabIndex = 9;
             this.labelCurrentIteration.Text = "Текущая итерация";
+            this.labelCurrentIteration.Visible = false;
             // 
             // labelError
             // 
@@ -202,6 +205,7 @@
             this.labelError.Size = new System.Drawing.Size(96, 13);
             this.labelError.TabIndex = 10;
             this.labelError.Text = "Ошибка обучения";
+            this.labelError.Visible = false;
             // 
             // labelErrorWorking
             // 
@@ -211,21 +215,13 @@
             this.labelErrorWorking.Size = new System.Drawing.Size(68, 13);
             this.labelErrorWorking.TabIndex = 11;
             this.labelErrorWorking.Text = "Отклонение";
-            // 
-            // textBoxPirson
-            // 
-            this.textBoxPirson.Location = new System.Drawing.Point(499, 121);
-            this.textBoxPirson.Name = "textBoxPirson";
-            this.textBoxPirson.ReadOnly = true;
-            this.textBoxPirson.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPirson.TabIndex = 12;
+            this.labelErrorWorking.Visible = false;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(629, 477);
-            this.Controls.Add(this.textBoxPirson);
             this.Controls.Add(this.labelErrorWorking);
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.labelCurrentIteration);
@@ -264,7 +260,6 @@
         private System.Windows.Forms.Label labelCurrentIteration;
         private System.Windows.Forms.Label labelError;
         private System.Windows.Forms.Label labelErrorWorking;
-        private System.Windows.Forms.TextBox textBoxPirson;
     }
 }
 

@@ -37,6 +37,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelCountIntervals = new System.Windows.Forms.Label();
+            this.textBoxCountIntervals = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // comboBoxDistribution
@@ -87,9 +89,9 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(163, 148);
+            this.buttonCancel.Location = new System.Drawing.Point(158, 148);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(121, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(148, 23);
             this.buttonCancel.TabIndex = 15;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -136,12 +138,31 @@
             this.textBox1.TabIndex = 11;
             this.textBox1.Visible = false;
             // 
+            // labelCountIntervals
+            // 
+            this.labelCountIntervals.AutoSize = true;
+            this.labelCountIntervals.Location = new System.Drawing.Point(160, 97);
+            this.labelCountIntervals.Name = "labelCountIntervals";
+            this.labelCountIntervals.Size = new System.Drawing.Size(98, 13);
+            this.labelCountIntervals.TabIndex = 21;
+            this.labelCountIntervals.Text = "Кол-во коридоров";
+            // 
+            // textBoxCountIntervals
+            // 
+            this.textBoxCountIntervals.Location = new System.Drawing.Point(161, 113);
+            this.textBoxCountIntervals.Name = "textBoxCountIntervals";
+            this.textBoxCountIntervals.Size = new System.Drawing.Size(145, 20);
+            this.textBoxCountIntervals.TabIndex = 20;
+            this.textBoxCountIntervals.Text = "15";
+            // 
             // FormParametrs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(287, 177);
+            this.ClientSize = new System.Drawing.Size(312, 177);
             this.ControlBox = false;
+            this.Controls.Add(this.labelCountIntervals);
+            this.Controls.Add(this.textBoxCountIntervals);
             this.Controls.Add(this.comboBoxDistribution);
             this.Controls.Add(this.labelCount);
             this.Controls.Add(this.textBoxCount);
@@ -169,5 +190,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label labelCountIntervals;
+        private System.Windows.Forms.TextBox textBoxCountIntervals;
     }
 }

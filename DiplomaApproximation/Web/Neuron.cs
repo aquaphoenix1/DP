@@ -2,7 +2,7 @@
 
 namespace DiplomaApproximation.Web
 {
-    class Neuron
+    public class Neuron
     {
         public double Weight { get; set; }
 

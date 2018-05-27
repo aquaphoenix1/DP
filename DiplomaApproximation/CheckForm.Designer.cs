@@ -280,7 +280,7 @@
             // Column1
             // 
             this.Column1.Frozen = true;
-            this.Column1.HeaderText = "1";
+            this.Column1.HeaderText = "0.99998";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -437,7 +437,7 @@
             this.MinimizeBox = false;
             this.Name = "CheckForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Хи-квадрат Пирсона";
+            this.Text = "Критерии согласия";
             this.Load += new System.EventHandler(this.CheckForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChiSquare)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKolmogorov)).EndInit();

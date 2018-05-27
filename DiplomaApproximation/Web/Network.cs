@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DiplomaApproximation.Web
 {
-    class Network
+    public class Network
     {
         public Layer Layer { get; private set; }
 
@@ -20,9 +20,18 @@ namespace DiplomaApproximation.Web
 
         }
 
-        public void InitCenters(int countHideNeurons, double[] arrayOfX)
+        public void InitCenters(double[] arrayOfX)
         {
-            Layer = new Layer(countHideNeurons, arrayOfX);
+            Layer = new Layer(CountNeurons, arrayOfX);
+
+            switch (TypeInitialization)
+            {
+                case "Имитация отжига":
+                    {
+                        Annealing(arrayOfX);
+                        break;
+                    }
+            }
         }
 
         public double OutputValue(double inputX)
@@ -43,45 +52,70 @@ namespace DiplomaApproximation.Web
         private bool Epoch(double[] arrayOfX, double[] arrayOfY, out double err)
         {
             err = 0;
-            
-            double[] mas = new double[CountNeurons];
-            
 
-            for (int i = 0; i < CountNeurons; i++)
+            double[] mas = new double[arrayOfX.Length];
+
+            for (int j = 0; j < arrayOfX.Length; j++)
             {
-                double y = OutputValue(arrayOfX[i]);
-                
-                mas[i] = y;
+                for (int i = 0; i < CountNeurons; i++)
+                {
+                    double y = OutputValue(arrayOfX[j]);
 
-                err += CalculateError(arrayOfX[i], arrayOfY[i]);
+                    mas[j] = y;
 
-                double difference = y - arrayOfY[i];
+                    err += CalculateError(arrayOfX[j], arrayOfY[j]);
 
-                Layer.Neurons[i].RecalculateWeight(LearningCoefficient, difference, arrayOfX[i], Momentum);
-                Layer.Neurons[i].RecalculateCenter(LearningCoefficient, difference, arrayOfX[i]);
-                Layer.Neurons[i].RecalculateRadius(LearningCoefficient, difference, arrayOfX[i]);
+                    double difference = y - arrayOfY[j];
+
+                    Layer.Neurons[i].RecalculateWeight(LearningCoefficient, difference, arrayOfX[j], Momentum);
+                    Layer.Neurons[i].RecalculateCenter(LearningCoefficient, difference, arrayOfX[j]);
+                    Layer.Neurons[i].RecalculateRadius(LearningCoefficient, difference, arrayOfX[j]);
+                }
             }
 
             FormMain.Set(arrayOfX, mas);
-            err = Math.Sqrt(err / (CountNeurons - 1));
+            if (CountNeurons > 1)
+            {
+                err = Math.Sqrt(err / (CountNeurons - 1));
+            }
             return (err <= Error);
         }
 
-        private void Annealing()
+        private void Annealing(double[] arrayX)
         {
             Random rand = new Random();
 
             double start = Param[0],
                 temperature = start,
-                rate = Param[1];
+                rate = Param[2];
 
-            while (temperature > Param[2])
+            int j = 0;
+
+            while (temperature > Param[1])
             {
-                for (int j = 0; j < Layer.Neurons.Length; j++)
+                //for (int j = 14; j < Layer.Neurons.Length; j++)
                 {
+
+                    if (j >= arrayX.Length - 1)
+                    {
+                        j = arrayX.Length - 2;
+                    }
+
                     double w, _w;
+                    bool isChanged = false;
 
                     if (j == Layer.Neurons.Length - 1)
+                    {
+                        w = OutputValue(arrayX[j]);
+                        _w = OutputValue(arrayX[j - 1]);
+                    }
+                    else
+                    {
+                        w = OutputValue(arrayX[j]);
+                        _w = OutputValue(arrayX[j + 1]);
+                    }
+
+                    /*if (j == Layer.Neurons.Length - 1)
                     {
                         w = OutputValue(Layer.Neurons[j].Weight);
                         _w = OutputValue(Layer.Neurons[j - 1].Weight);
@@ -90,48 +124,50 @@ namespace DiplomaApproximation.Web
                     {
                         w = OutputValue(Layer.Neurons[j].Weight);
                         _w = OutputValue(Layer.Neurons[j + 1].Weight);
-                    }
+                    }*/
 
                     double f = 0.0;
+                    double res = _w - w;
 
-                    if(_w > w)
+                    if (res <= 0)
                     {
                         f = _w;
+                        isChanged = true;
                     }
                     else
                     {
-                        double value = _w - w;
-
-                        if(rand.NextDouble() > Math.Exp(-value / (Layer.Neurons.Length * temperature)))
+                        if (rand.NextDouble() < Math.Exp(-res / temperature))
                         {
                             f = _w;
+                            isChanged = true;
                         }
                         else
                         {
                             f = w;
+                            isChanged = false;
                         }
                     }
 
                     Layer.Neurons[j].Weight = f;
 
-                    temperature *= rate;
-                }
+                    if (!isChanged)
+                    {
+                        j--;
+                    }
 
-                
+                    temperature *= rate;
+
+                    if (temperature <= Param[1])
+                    {
+                        break;
+                    }
+                }
             }
+
         }
 
         public void Learning(FormMain form, double[] arrayOfX, double[] arrayOfY)
         {
-            switch (TypeInitialization)
-            {
-                case "Имитация отжига":
-                    {
-                        Annealing();
-                        break;
-                    }
-            }
-
             List<double> errorsList = new List<double>();
             List<int> XList = new List<int>();
             int j = 0;
