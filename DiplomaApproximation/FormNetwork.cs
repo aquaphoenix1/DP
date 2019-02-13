@@ -35,7 +35,7 @@ namespace DiplomaApproximation
                     double param = double.Parse(textBoxStartTemperature.Text);
                     if(param <= 0 || param > 1)
                     {
-                        //throw new Exception();
+                        throw new Exception("Диапазон начальной температуры от 0 до 1");
                     }
 
                     arrayOfParametrs[0] = param;
@@ -43,7 +43,7 @@ namespace DiplomaApproximation
                     param = double.Parse(textBoxStopTemperature.Text);
                     if (param <= 0 || param >= arrayOfParametrs[0])
                     {
-                        throw new Exception();
+                        throw new Exception("Конечная температура - положительное число, меньшее, чем стартовая температура");
                     }
 
                     arrayOfParametrs[1] = param;
@@ -51,27 +51,53 @@ namespace DiplomaApproximation
                     param = double.Parse(textBoxKoefficientTemperature.Text);
                     if (param <= 0 || param >= 1)
                     {
-                        throw new Exception();
+                        throw new Exception("Коэффициент уменьшения температуры от 0 до 1");
                     }
 
                     arrayOfParametrs[2] = param;
                 }
 
+                double coefficient = double.Parse(textBoxCoefficient.Text);
+                if(coefficient < 0 || coefficient >= 1)
+                {
+                    throw new Exception("Коэффициент обучения от 0 до 1");
+                }
+
+                double momentum = double.Parse(textBoxMoment.Text);
+                if(momentum < 0 || momentum >= 1)
+                {
+                    throw new Exception("Момент от 0 до 1");
+                }
+
+                double error = double.Parse(textBoxError.Text);
+                if(error < 0)
+                {
+                    throw new Exception("Ошибка обучения не модет быть отрицательной");
+                }
+
+                int countNeurons = int.Parse(textBoxCountNeurons.Text);
+                if(countNeurons < 3)
+                {
+                    throw new Exception("Слишком маленькое число нейронов");
+                }
+
                 this.Hide();
                 formMain.InitializeNetwork(Int32.Parse(textBoxCountItterations.Text),
-                    Double.Parse(textBoxCoefficient.Text),
-                    Double.Parse(textBoxMoment.Text),
-                    Double.Parse(textBoxError.Text),
-                    int.Parse(textBoxCountNeurons.Text), comboBoxInit.SelectedItem.ToString(), arrayOfParametrs);
+                    coefficient,
+                    momentum,
+                    error,
+                    countNeurons, 
+                    comboBoxInit.SelectedItem.ToString(), 
+                    arrayOfParametrs);
 
                 DialogResult = DialogResult.OK;
                 ButtonCancel_Click(sender, e);
             }
-            catch
+            catch(Exception ex)
             {
                 this.Show();
                 formMain.Hide();
-                MessageBox.Show("Проверьте правильность параметров");
+                MessageBox.Show("Проверьте правильность параметров\n" + ex.Message);
             }
         }
 

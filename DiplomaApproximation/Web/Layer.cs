@@ -12,7 +12,12 @@ namespace DiplomaApproximation.Web
             Neurons = new Neuron[countNeurons];
 
             double k = arrayOfX[0];
-            double e = (arrayOfX[arrayOfX.Length - 1] - k) / 20;
+            double e = (arrayOfX[arrayOfX.Length - 1] - k) / countNeurons;
+
+            if (countNeurons == 1)
+            {
+                k = arrayOfX[arrayOfX.Length / 2];
+            }
 
             for (int i = 0; i < countNeurons; i++)
             {

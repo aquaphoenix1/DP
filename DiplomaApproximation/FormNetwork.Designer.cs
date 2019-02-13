@@ -99,7 +99,7 @@
             this.textBoxCoefficient.Name = "textBoxCoefficient";
             this.textBoxCoefficient.Size = new System.Drawing.Size(122, 20);
             this.textBoxCoefficient.TabIndex = 2;
-            this.textBoxCoefficient.Text = "0.01";
+            this.textBoxCoefficient.Text = "0.001";
             // 
             // textBoxCountItterations
             // 

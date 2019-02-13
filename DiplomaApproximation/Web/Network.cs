@@ -57,26 +57,24 @@ namespace DiplomaApproximation.Web
 
             for (int j = 0; j < arrayOfX.Length; j++)
             {
+                double y = OutputValue(arrayOfX[j]);
+                mas[j] = y;
+                double difference = y - arrayOfY[j];
+
                 for (int i = 0; i < CountNeurons; i++)
                 {
-                    double y = OutputValue(arrayOfX[j]);
-
-                    mas[j] = y;
-
-                    err += CalculateError(arrayOfX[j], arrayOfY[j]);
-
-                    double difference = y - arrayOfY[j];
-
                     Layer.Neurons[i].RecalculateWeight(LearningCoefficient, difference, arrayOfX[j], Momentum);
                     Layer.Neurons[i].RecalculateCenter(LearningCoefficient, difference, arrayOfX[j]);
                     Layer.Neurons[i].RecalculateRadius(LearningCoefficient, difference, arrayOfX[j]);
                 }
+                err += CalculateError(arrayOfX[j], arrayOfY[j]);
             }
 
             FormMain.Set(arrayOfX, mas);
             if (CountNeurons > 1)
             {
-                err = Math.Sqrt(err / (CountNeurons - 1));
+                //err = Math.Sqrt(err / (CountNeurons - 1));
+                err /= 2;
             }
             return (err <= Error);
         }
@@ -93,83 +91,68 @@ namespace DiplomaApproximation.Web
 
             while (temperature > Param[1])
             {
-                //for (int j = 14; j < Layer.Neurons.Length; j++)
+                if (j >= arrayX.Length - 1)
                 {
+                    j = arrayX.Length - 2;
+                }
 
-                    if (j >= arrayX.Length - 1)
-                    {
-                        j = arrayX.Length - 2;
-                    }
+                double w, _w;
+                bool isChanged = false;
 
-                    double w, _w;
-                    bool isChanged = false;
+                if (j == Layer.Neurons.Length - 1)
+                {
+                    w = OutputValue(arrayX[j]);
+                    _w = OutputValue(arrayX[j - 1]);
+                }
+                else
+                {
+                    w = OutputValue(arrayX[j]);
+                    _w = OutputValue(arrayX[j + 1]);
+                }
 
-                    if (j == Layer.Neurons.Length - 1)
-                    {
-                        w = OutputValue(arrayX[j]);
-                        _w = OutputValue(arrayX[j - 1]);
-                    }
-                    else
-                    {
-                        w = OutputValue(arrayX[j]);
-                        _w = OutputValue(arrayX[j + 1]);
-                    }
+                double f = 0.0;
+                double res = _w - w;
 
-                    /*if (j == Layer.Neurons.Length - 1)
-                    {
-                        w = OutputValue(Layer.Neurons[j].Weight);
-                        _w = OutputValue(Layer.Neurons[j - 1].Weight);
-                    }
-                    else
-                    {
-                        w = OutputValue(Layer.Neurons[j].Weight);
-                        _w = OutputValue(Layer.Neurons[j + 1].Weight);
-                    }*/
-
-                    double f = 0.0;
-                    double res = _w - w;
-
-                    if (res <= 0)
+                if (res <= 0)
+                {
+                    f = _w;
+                    isChanged = true;
+                }
+                else
+                {
+                    if (rand.NextDouble() < Math.Exp(-res / temperature))
                     {
                         f = _w;
                         isChanged = true;
                     }
                     else
                     {
-                        if (rand.NextDouble() < Math.Exp(-res / temperature))
-                        {
-                            f = _w;
-                            isChanged = true;
-                        }
-                        else
-                        {
-                            f = w;
-                            isChanged = false;
-                        }
-                    }
-
-                    Layer.Neurons[j].Weight = f;
-
-                    if (!isChanged)
-                    {
-                        j--;
-                    }
-
-                    temperature *= rate;
-
-                    if (temperature <= Param[1])
-                    {
-                        break;
+                        f = w;
+                        isChanged = false;
                     }
                 }
+
+                Layer.Neurons[j].Weight = f;
+
+                if (!isChanged)
+                {
+                    j--;
+                }
+
+                temperature *= rate;
+
+                j++;
             }
 
         }
 
+        public static List<double> errorsList;
+        public static List<int> XList;
+
         public void Learning(FormMain form, double[] arrayOfX, double[] arrayOfY)
         {
-            List<double> errorsList = new List<double>();
-            List<int> XList = new List<int>();
+            errorsList = new List<double>();
+            XList = new List<int>();
             int j = 0;
             while (j++ < CountLearningItterations)
             {
@@ -183,7 +166,6 @@ namespace DiplomaApproximation.Web
                 errorsList.Add(err);
                 XList.Add(j);
             }
-
             form.SwitchButton(true);
             form.DrawError(errorsList.ToArray(), XList.ToArray());
         }
