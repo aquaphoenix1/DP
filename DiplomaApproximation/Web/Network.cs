@@ -73,8 +73,8 @@ namespace DiplomaApproximation.Web
             FormMain.Set(arrayOfX, mas);
             if (CountNeurons > 1)
             {
-                //err = Math.Sqrt(err / (CountNeurons - 1));
-                err /= 2;
+                err = Math.Sqrt(err / (CountNeurons - 1));
+                //err /= 2;
             }
             return (err <= Error);
         }
