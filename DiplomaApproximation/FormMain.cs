@@ -111,7 +111,7 @@ namespace DiplomaApproximation
                 learnedX = ArrayX;
                 learnedY = ArrayY;
 
-                network.InitCenters(learnedX);
+                network.InitCenters(learnedX, learnedY);
 
                 chartHystogram.Series["Выборка"].Points.DataBindXY(learnedX, learnedY);
 

@@ -161,7 +161,9 @@
             this.comboBoxInit.FormattingEnabled = true;
             this.comboBoxInit.Items.AddRange(new object[] {
             "Случайные веса",
-            "Имитация отжига"});
+            "Имитация отжига",
+            "Дифференциальная эволюция",
+            "Рой частиц"});
             this.comboBoxInit.Location = new System.Drawing.Point(12, 228);
             this.comboBoxInit.Name = "comboBoxInit";
             this.comboBoxInit.Size = new System.Drawing.Size(122, 21);
