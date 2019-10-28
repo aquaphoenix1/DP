@@ -407,6 +407,8 @@ namespace DiplomaApproximation
 
             textBoxStartCount.Enabled = true;
             textBoxStartCount.Visible = true;
+            
+            textBoxStartCount.Text = "5";
 
             this.Height = 482;
             buttonAccept.Location = new System.Drawing.Point(buttonAccept.Location.X, 412);
